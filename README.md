@@ -20,6 +20,7 @@ console.log("Final count:", count);
 
 
 
+
 // =======================
 // EXERCISE 1: NUMBER OPERATIONS
 // =======================
