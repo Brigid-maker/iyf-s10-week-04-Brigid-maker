@@ -1,67 +1,75 @@
 // =======================
-// CALCULATOR FUNCTIONS
+// EXERCISE 1: ARRAY BASICS
 // =======================
+console.log("=== Array Basics ===");
 
-function add(a, b) {
-    return a + b;
-}
+// Creating arrays
+const fruits = ["apple", "banana", "orange"];
+const numbersBasic = [1, 2, 3, 4, 5];
+const mixed = ["hello", 42, true, null];
 
-function subtract(a, b) {
-    return a - b;
-}
+// Accessing elements
+console.log("First fruit:", fruits[0]);
+console.log("Number of fruits:", fruits.length);
 
-function multiply(a, b) {
-    return a * b;
-}
+// Modifying arrays
+fruits.push("grape");       // Add to end
+fruits.unshift("mango");    // Add to start
+fruits.pop();               // Remove from end
+fruits.shift();             // Remove from start
 
-function divide(a, b) {
-    if (b === 0) {
-        return "Error: Cannot divide by zero";
-    }
-    return a / b;
-}
-
-function modulus(a, b) {
-    return a % b;
-}
-
-function power(a, b) {
-    return a ** b;
-}
+console.log("Updated fruits:", fruits);
 
 
 // =======================
-// MAIN CALCULATE FUNCTION
+// EXERCISE 2: ARRAY METHODS
 // =======================
-function calculate(num1, operator, num2) {
-    switch (operator) {
-        case "+":
-            return add(num1, num2);
-        case "-":
-            return subtract(num1, num2);
-        case "*":
-            return multiply(num1, num2);
-        case "/":
-            return divide(num1, num2);
-        case "%":
-            return modulus(num1, num2);
-        case "**":
-            return power(num1, num2);
-        default:
-            return "Invalid operator";
-    }
-}
+console.log("\n=== Array Methods ===");
+
+const numbers = [1, 2, 3, 4, 5];
+
+// forEach
+numbers.forEach(num => console.log("Double:", num * 2));
+
+// map
+const doubled = numbers.map(num => num * 2);
+console.log("Doubled array:", doubled);
+
+// filter
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+console.log("Even numbers:", evenNumbers);
+
+// find
+const firstEven = numbers.find(num => num % 2 === 0);
+console.log("First even number:", firstEven);
+
+// reduce
+const sum = numbers.reduce((total, num) => total + num, 0);
+console.log("Sum:", sum);
+
+// includes
+console.log("Includes 3:", numbers.includes(3));
 
 
 // =======================
-// TESTING THE CALCULATOR
+// BUILD TASKS
 // =======================
-console.log("\n=== Calculator ===");
+console.log("\n=== Build Tasks ===");
 
-console.log(calculate(10, "+", 5));   // 15
-console.log(calculate(10, "-", 5));   // 5
-console.log(calculate(10, "*", 5));   // 50
-console.log(calculate(10, "/", 5));   // 2
-console.log(calculate(10, "/", 0));   // Error
-console.log(calculate(10, "%", 3));   // 1
-console.log(calculate(2, "**", 3));   // 8
+const testNumbers = [2, -5, 8, 12, -3, 7];
+
+// 1️⃣ Double all numbers
+const doubledAll = testNumbers.map(num => num * 2);
+console.log("Doubled:", doubledAll);
+
+// 2️⃣ Filter out negative numbers
+const noNegatives = testNumbers.filter(num => num >= 0);
+console.log("No negatives:", noNegatives);
+
+// 3️⃣ Find first number greater than 10
+const greaterThanTen = testNumbers.find(num => num > 10);
+console.log("First > 10:", greaterThanTen);
+
+// 4️⃣ Product of all numbers
+const product = testNumbers.reduce((total, num) => total * num, 1);
+console.log("Product:", product);
