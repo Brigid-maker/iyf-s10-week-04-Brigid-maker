@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>🎓 Student Grade Tracker</h1>
+
+  <form onsubmit="event.preventDefault(); addStudent();">
+    <input id="name" placeholder="Student Name" required>
+    <input id="math" type="number" placeholder="Math">
+    <input id="english" type="number" placeholder="English">
+    <input id="science" type="number" placeholder="Science">
+    <button type="submit">Add Student</button>
+  </form>
+
+  <div id="students"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
