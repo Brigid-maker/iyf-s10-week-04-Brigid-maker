@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CALC MK II</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="calculator">
+
+  <div class="top">
+    <h1>CALC · MK II</h1>
+    <div class="lights">
+      <span class="green"></span>
+      <span class="orange"></span>
+      <span class="red"></span>
+    </div>
+  </div>
+
+  <div class="display">
+    <div id="expression"></div>
+    <div id="result">0</div>
+  </div>
+
+  <div class="buttons">
+    <button data-action="clear" class="clear">AC</button>
+    <button data-action="delete">DEL</button>
+    <button data-action="sign">+/-</button>
+    <button data-op="/">÷</button>
+
+    <button data-num="7">7</button>
+    <button data-num="8">8</button>
+    <button data-num="9">9</button>
+    <button data-op="*">×</button>
+
+    <button data-num="4">4</button>
+    <button data-num="5">5</button>
+    <button data-num="6">6</button>
+    <button data-op="-">−</button>
+
+    <button data-num="1">1</button>
+    <button data-num="2">2</button>
+    <button data-num="3">3</button>
+    <button data-op="+">+</button>
+
+    <button data-op="**">xʸ</button>
+    <button data-num="0">0</button>
+    <button data-action="decimal">.</button>
+    <button data-action="equals" class="equals">=</button>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
