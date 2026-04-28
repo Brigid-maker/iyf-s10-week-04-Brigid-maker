@@ -1,0 +1,562 @@
+/* ═══════════════════════════════════════════════════════════
+   styles.css — Grade Tracker
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── CSS Custom Properties ──────────────────────────────── */
+:root {
+  --ink:      #1a1208;
+  --paper:    #f7f2e8;
+  --cream:    #ede6d3;
+  --gold:     #c9922a;
+  --gold-lt:  #f0c96a;
+  --rust:     #c0441a;
+  --sage:     #4a7c59;
+  --sky:      #2a5c8a;
+  --muted:    #8a7d6a;
+  --border:   #d4c9b0;
+
+  /* Grade colours */
+  --color-A: #4a7c59;
+  --color-B: #c9922a;
+  --color-C: #2a5c8a;
+  --color-D: #c0441a;
+  --color-F: #e05050;
+}
+
+/* ── Reset & Base ────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Mono', monospace;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+  background-image:
+    radial-gradient(ellipse at 20% 0%,   rgba(201, 146, 42, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(74,  124, 89, 0.06) 0%, transparent 60%);
+}
+
+/* ── Keyframe Animations ─────────────────────────────────── */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PAGE HEADER
+════════════════════════════════════════════════════════════ */
+.page-header {
+  max-width: 960px;
+  margin: 0 auto 3rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1rem;
+  animation: fadeDown 0.5s ease both;
+}
+
+.page-header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.page-header h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.header-meta {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-align: right;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+
+/* ════════════════════════════════════════════════════════════
+   LAYOUT — Sidebar + Main
+════════════════════════════════════════════════════════════ */
+.layout {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PANEL
+════════════════════════════════════════════════════════════ */
+.panel {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 4px 4px 0 var(--border);
+  animation: fadeUp 0.4s ease both;
+}
+
+.panel--mt { margin-top: 1.5rem; animation-delay: 0.1s; }
+
+.panel-head {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.65rem 1.1rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* bubble count badge in panel head */
+.count {
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 0.6rem;
+  font-weight: 500;
+  padding: 0.1rem 0.45rem;
+  border-radius: 20px;
+}
+
+.panel-body { padding: 1.2rem; }
+.panel-body--compact { padding: 0.6rem 1.2rem; }
+
+/* ════════════════════════════════════════════════════════════
+   FORM — Add Student
+════════════════════════════════════════════════════════════ */
+.form-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.form-input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 2px;
+  padding: 0.55rem 0.7rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--ink);
+  background: var(--paper);
+  outline: none;
+  transition: border-color 0.15s;
+  margin-bottom: 0.75rem;
+}
+
+.form-input:focus { border-color: var(--gold); }
+
+/* 2-column grade input grid */
+.grades-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.grade-field { position: relative; }
+
+.grade-field .subj-label {
+  position: absolute;
+  top: 50%;
+  left: 0.6rem;
+  transform: translateY(-50%);
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.grade-field input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 2px;
+  padding: 0.55rem 0.5rem 0.55rem 2.8rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--ink);
+  background: var(--paper);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.grade-field input:focus { border-color: var(--gold); }
+
+/* Submit button */
+.btn-add {
+  width: 100%;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 0.7rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-add:hover {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+/* feedback message under the button */
+.notice {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 0.5rem;
+  letter-spacing: 0.04em;
+  min-height: 1.2em;
+}
+
+/* section divider inside form */
+.divider {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1rem 0 0.6rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ════════════════════════════════════════════════════════════
+   STATS ROW
+════════════════════════════════════════════════════════════ */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-box {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 2px;
+  padding: 1rem 1.1rem;
+  box-shadow: 3px 3px 0 var(--border);
+  animation: fadeUp 0.4s ease both;
+}
+
+.stat-box:nth-child(1) { animation-delay: 0.08s; }
+.stat-box:nth-child(2) { animation-delay: 0.13s; }
+.stat-box:nth-child(3) { animation-delay: 0.18s; }
+
+.stat-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
+.stat-val {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--gold);
+}
+
+/* smaller font for long names */
+.stat-val--name {
+  font-size: 1.1rem;
+  padding-top: 0.4rem;
+}
+
+.stat-sub {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+/* ════════════════════════════════════════════════════════════
+   ROSTER TABLE
+════════════════════════════════════════════════════════════ */
+.table-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+thead tr {
+  background: var(--cream);
+  border-bottom: 2px solid var(--ink);
+}
+
+thead th {
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+  cursor: pointer;
+}
+
+tbody tr:hover    { background: var(--cream); }
+tbody tr.selected { background: #fffbe8; }
+
+tbody td {
+  padding: 0.75rem 0.8rem;
+  vertical-align: middle;
+}
+
+.student-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 0.95rem;
+}
+
+/* ── Grade Badge (circular letter) ──────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.badge-A { background: #e8f5ee; color: var(--color-A); border: 1.5px solid var(--color-A); }
+.badge-B { background: #fdf6e3; color: var(--color-B); border: 1.5px solid var(--color-B); }
+.badge-C { background: #e8f0f8; color: var(--color-C); border: 1.5px solid var(--color-C); }
+.badge-D { background: #fdf0e8; color: var(--color-D); border: 1.5px solid var(--color-D); }
+.badge-F { background: #fde8e8; color: var(--color-F); border: 1.5px solid var(--color-F); }
+
+/* ── Average Progress Bar ────────────────────────────────── */
+.avg-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.avg-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--cream);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.avg-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s cubic-bezier(.4, 0, .2, 1);
+}
+
+.avg-num {
+  font-size: 0.78rem;
+  min-width: 36px;
+  text-align: right;
+}
+
+/* ── Subject grade pills (in table cells) ───────────────── */
+.grade-pill {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-right: 0.4rem;
+}
+
+.grade-pill strong { color: var(--ink); }
+
+/* ════════════════════════════════════════════════════════════
+   STRUGGLING ALERT
+════════════════════════════════════════════════════════════ */
+.alert {
+  background: #fff4f0;
+  border: 1.5px solid var(--rust);
+  border-radius: 2px;
+  padding: 0.7rem 1rem;
+  font-size: 0.75rem;
+  color: var(--rust);
+  letter-spacing: 0.04em;
+  margin-top: 1rem;
+}
+
+/* ════════════════════════════════════════════════════════════
+   REPORT CARD
+════════════════════════════════════════════════════════════ */
+.report-card {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 2px;
+  box-shadow: 4px 4px 0 var(--border);
+  margin-top: 1.5rem;
+  animation: fadeUp 0.35s ease both;
+}
+
+.report-header {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 1rem 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.report-header-left .report-eyebrow {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.2rem;
+}
+
+.report-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem;
+}
+
+.report-header-right { text-align: right; }
+
+.report-avg-eyebrow {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.1rem;
+}
+
+.report-avg {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  color: var(--gold-lt);
+}
+
+.report-body { padding: 1.2rem 1.4rem; }
+
+.report-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.report-row:last-child { border-bottom: none; }
+
+.report-subject {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.report-score-bar { flex: 1; margin: 0 1rem; }
+
+.report-score-track {
+  height: 6px;
+  background: var(--cream);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.report-score-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.7s cubic-bezier(.4, 0, .2, 1);
+}
+
+.report-score-num {
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: 30px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.report-badge { margin-left: 0.6rem; }
+
+/* ════════════════════════════════════════════════════════════
+   SUBJECT AVERAGES (sidebar panel)
+════════════════════════════════════════════════════════════ */
+.subject-row {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.subject-row:last-child { border-bottom: none; }
+
+.subject-row-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.subject-name {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.subject-score { font-size: 0.78rem; }
+
+/* ════════════════════════════════════════════════════════════
+   EMPTY STATE
+════════════════════════════════════════════════════════════ */
+.empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+
+.empty-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  opacity: 0.3;
+}

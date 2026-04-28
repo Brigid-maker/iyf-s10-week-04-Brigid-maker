@@ -1,23 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Grade Tracker</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade Tracker</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="container">
-  <h1>🎓 Student Grade Tracker</h1>
+<header class="page-header">
+  <h1>Grade<br><em>Tracker</em></h1>
+  <div class="header-meta">Lesson 8 · Task 8.3<br>Arrays & Objects<br>Student Manager</div>
+</header>
 
-  <form onsubmit="event.preventDefault(); addStudent();">
-    <input id="name" placeholder="Student Name" required>
-    <input id="math" type="number" placeholder="Math">
-    <input id="english" type="number" placeholder="English">
-    <input id="science" type="number" placeholder="Science">
-    <button type="submit">Add Student</button>
-  </form>
+<div class="layout">
+  <aside>
+    <div class="panel">
+      <div class="panel-head">Add Student</div>
+      <div class="panel-body">
+        <label class="form-label">Name</label>
+        <input class="form-input" id="inp-name" type="text" placeholder="e.g. Alice" />
 
-  <div id="students"></div>
+        <div class="divider">Grades</div>
+
+        <div class="grades-grid">
+          <div class="grade-field"><span class="subj-label">Math</span><input type="number" id="inp-math" min="0" max="100" /></div>
+          <div class="grade-field"><span class="subj-label">Eng</span><input type="number" id="inp-english" min="0" max="100" /></div>
+          <div class="grade-field"><span class="subj-label">Sci</span><input type="number" id="inp-science" min="0" max="100" /></div>
+        </div>
+
+        <button class="btn-add" id="btn-add">+ Add Student</button>
+        <p class="notice" id="form-msg"></p>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:1.5rem">
+      <div class="panel-head">Subject Averages</div>
+      <div class="panel-body" id="subject-avgs"></div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-label">Students</div><div class="stat-val" id="stat-count">0</div></div>
+      <div class="stat-box"><div class="stat-label">Class Avg</div><div class="stat-val" id="stat-avg">—</div></div>
+      <div class="stat-box"><div class="stat-label">Top Student</div><div class="stat-val" id="stat-top">—</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">Roster <span class="count" id="roster-count">0</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Grades</th><th>Average</th><th>Letter</th></tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="struggling-wrap"></div>
+    <div id="report-wrap"></div>
+  </main>
 </div>
 
 <script src="script.js"></script>
