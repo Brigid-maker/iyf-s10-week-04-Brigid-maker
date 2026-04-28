@@ -68,6 +68,11 @@ body {
   gap: 10px;
 }
 
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
 button {
   padding: 15px;
   border: none;
@@ -98,3 +103,38 @@ button:active {
 .clear {
   color: red;
 }
+
+/* Numbers */
+.btn {
+  background: #333;
+}
+
+/* Operators */
+.btn.op {
+  background: orange;
+  color: white;
+}
+
+/* Top row (AC, +/- etc) */
+.btn.clear,
+.btn[data-action="sign"],
+.btn[data-action="delete"] {
+  background: #a5a5a5;
+  color: black;
+}
+
+/* Equals */
+.btn.eq {
+  background: orange;
+  color: white;
+}
+
+.btn {
+  height: 70px;
+  border-radius: 50%;
+  font-size: 22px;
+  border: none;
+  background: #1c1c1c;
+  color: white;
+}
+
