@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IYF Week 04 — JS Mastery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --border: #1e1e2e;
+      --accent: #f0e14a;
+      --accent2: #7c6af7;
+      --text: #e8e8f0;
+      --muted: #6b6b80;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(240,225,74,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240,225,74,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 32px 120px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #0a0a0f;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 80px;
+      max-width: 400px;
+      line-height: 1.7;
+    }
+
+    .lessons {
+      display: grid;
+      gap: 2px;
+    }
+
+    .lesson-header {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 32px 0 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .lesson-header:first-child { border-top: none; padding-top: 0; }
+
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2px;
+      margin-bottom: 4px;
+    }
+
+    .task-card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 28px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .task-card::after {
+      content: '→';
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%) translateX(10px);
+      opacity: 0;
+      transition: all 0.2s;
+      font-size: 18px;
+      color: var(--accent);
+    }
+
+    .task-card:hover {
+      border-color: var(--accent);
+      background: #15151f;
+    }
+
+    .task-card:hover::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    .task-num {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+
+    .task-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .task-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .difficulty {
+      display: inline-block;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 2px;
+      margin-top: 16px;
+      letter-spacing: 0.08em;
+    }
+
+    .green { background: rgba(74,240,130,0.12); color: #4af082; }
+    .yellow { background: rgba(240,225,74,0.12); color: #f0e14a; }
+    .red { background: rgba(240,74,74,0.12); color: #f04a4a; }
+
+    .mini-project {
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      padding: 32px;
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .mini-project:hover { background: #15151f; }
+
+    .mini-project .label {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .mini-project .arrow {
+      font-size: 28px;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">IYF Season 10 — Week 04</div>
+    <h1>JavaScript<br><span>Foundations</span></h1>
+    <p class="subtitle">// Lessons 7 & 8 — Variables, Functions, Control Flow, Arrays & Objects</p>
+
+    <div class="lessons">
+      <div class="lesson-header">Lesson 07 — Core JavaScript</div>
+      <div class="task-grid">
+        <a class="task-card" href="LESSON 7/Task7.1/index.html">
+          <div class="task-num">Task 7.1</div>
+          <div class="task-title">Variables & Setup</div>
+          <div class="task-desc">let, const, typeof, data types in action</div>
+          <span class="difficulty green">● easy</span>
+        </a>
+        <a class="task-card" href="LESSON 7/Task 7.2/index.html">
+          <div class="task-num">Task 7.2</div>
+          <div class="task-title">Operators & Types</div>
+          <div class="task-desc">Math, strings, comparison & logical operators</div>
+          <span class="difficulty green">● easy</span>
+        </a>
+        <a class="task-card" href="LESSON 7/Task 7.3/index.html">
+          <div class="task-num">Task 7.3</div>
+          <div class="task-title">Functions</div>
+          <div class="task-desc">Declarations, expressions, arrows & defaults</div>
+          <span class="difficulty yellow">● medium</span>
+        </a>
+        <a class="task-card" href="LESSON 7/Task 7.4/index.html">
+          <div class="task-num">Task 7.4</div>
+          <div class="task-title">Control Flow</div>
+          <div class="task-desc">If/else, switch, loops & FizzBuzz</div>
+          <span class="difficulty yellow">● medium</span>
+        </a>
+      </div>
+
+      <a class="mini-project" href="CALCULATOR">
+        <div>
+          <div class="task-num">MINI PROJECT</div>
+          <div class="label">Interactive Calculator</div>
+          <div class="task-desc" style="margin-top:8px;">All operators · divide-by-zero guard · live UI</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <div class="lesson-header" style="margin-top:48px;">Lesson 08 — Arrays & Objects</div>
+      <div class="task-grid">
+        <a class="task-card" href="LESSON 8/Task 8.1/index.html">
+          <div class="task-num">Task 8.1</div>
+          <div class="task-title">Arrays</div>
+          <div class="task-desc">map, filter, reduce, find & more</div>
+          <span class="difficulty green">● easy</span>
+        </a>
+        <a class="task-card" href="LESSON 8/Task 8.2/index.html">
+          <div class="task-num">Task 8.2</div>
+          <div class="task-title">Objects</div>
+          <div class="task-desc">Properties, methods, iteration & entries</div>
+          <span class="difficulty yellow">● medium</span>
+        </a>
+        <a class="task-card" href="LESSON 8/Task 8.3/index.html">
+          <div class="task-num">Task 8.3</div>
+          <div class="task-title">Arrays of Objects</div>
+          <div class="task-desc">Real data manipulation with student records</div>
+          <span class="difficulty red">● hard</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

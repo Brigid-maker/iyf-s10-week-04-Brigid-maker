@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 8.1 — Arrays</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<div class="page-wrap">
+  <a class="back" href="../index.html">← back to home</a>
+
+  <div class="page-header">
+    <div class="task-label">Task 8.1 · Easy</div>
+    <div class="page-title"><span>Arrays</span></div>
+    <p class="page-subtitle">// push · pop · map · filter · find · reduce · includes</p>
+  </div>
+
+  <!-- Exercise 1: Array Basics -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <div class="section-title">Exercise 1 — Array Basics &amp; Mutation Methods</div>
+    </div>
+    <div class="section-body">
+      <div class="code-block"><span class="c-kw">const</span> fruits = [<span class="c-str">"apple"</span>, <span class="c-str">"banana"</span>, <span class="c-str">"orange"</span>];
+fruits.<span class="c-fn">push</span>(<span class="c-str">"grape"</span>);    <span class="c-comment">// add to end   → [..., "grape"]</span>
+fruits.<span class="c-fn">unshift</span>(<span class="c-str">"mango"</span>);  <span class="c-comment">// add to start → ["mango", ...]</span>
+fruits.<span class="c-fn">pop</span>();              <span class="c-comment">// remove from end</span>
+fruits.<span class="c-fn">shift</span>();            <span class="c-comment">// remove from start</span></div>
+
+      <div id="fruitsDemo">
+        <p style="font-size:13px;color:var(--muted);margin:16px 0 8px;">Watch the array mutate step by step:</p>
+        <div class="controls">
+          <button class="btn secondary" onclick="fruitStep('push')">push("grape")</button>
+          <button class="btn secondary" onclick="fruitStep('unshift')">unshift("mango")</button>
+          <button class="btn secondary" onclick="fruitStep('pop')">pop()</button>
+          <button class="btn secondary" onclick="fruitStep('shift')">shift()</button>
+          <button class="btn secondary" onclick="fruitStep('reset')">reset</button>
+        </div>
+        <div class="result-card" style="margin-top:12px;">
+          <div class="result-label">Current array:</div>
+          <div class="result-value" id="fruitArray" style="font-size:14px;word-break:break-all;"></div>
+        </div>
+        <div id="fruitLog" style="margin-top:8px;font-size:12px;color:var(--muted);line-height:1.8;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise 2: Array Methods -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔨</div>
+      <div class="section-title">Exercise 2 — Array Higher-Order Methods</div>
+    </div>
+    <div class="section-body">
+      <div class="controls" style="margin-bottom:16px;">
+        <div class="input-group" style="flex:2">
+          <label>YOUR NUMBERS (comma-separated)</label>
+          <input type="text" id="nums-input" value="1, 2, 3, 4, 5, 6, 7, 8">
+        </div>
+        <button class="btn" onclick="runMethods()">Run All →</button>
+      </div>
+      <div class="output-box">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">ARRAY METHODS OUTPUT</span></div>
+        <div class="output-lines" id="methodsOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Build section -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏗️</div>
+      <div class="section-title">Build — Four Array Challenges</div>
+    </div>
+    <div class="section-body">
+      <div class="code-block"><span class="c-comment">// 1. Double all numbers</span>
+<span class="c-kw">const</span> doubled = numbers.<span class="c-fn">map</span>(num => num * <span class="c-num">2</span>);
+
+<span class="c-comment">// 2. Filter out negatives</span>
+<span class="c-kw">const</span> positives = numbers.<span class="c-fn">filter</span>(num => num >= <span class="c-num">0</span>);
+
+<span class="c-comment">// 3. First number greater than 10</span>
+<span class="c-kw">const</span> firstBig = numbers.<span class="c-fn">find</span>(num => num > <span class="c-num">10</span>);
+
+<span class="c-comment">// 4. Product of all numbers</span>
+<span class="c-kw">const</span> product = numbers.<span class="c-fn">reduce</span>((acc, num) => acc * num, <span class="c-num">1</span>);</div>
+
+      <div class="controls">
+        <div class="input-group" style="flex:2">
+          <label>NUMBERS (include some negatives & numbers > 10)</label>
+          <input type="text" id="challenge-nums" value="-3, 1, 5, 12, -7, 20, 4, 15">
+        </div>
+        <button class="btn" onclick="runChallenge()">Run →</button>
+      </div>
+      <div class="output-box" style="margin-top:16px;">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">CHALLENGE OUTPUT</span></div>
+        <div class="output-lines" id="challengeOutput"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Task 8.1: Arrays ───
+
+function renderLines(id, lines) {
+  document.getElementById(id).innerHTML = lines.map(([k,v,cls]) =>
+    `<div class="output-line"><span class="out-key">${k}</span><span class="out-val ${cls||''}">${v}</span></div>`
+  ).join('');
+}
+
+// Exercise 1 — Fruit array mutation
+let fruits = ["apple", "banana", "orange"];
+const logs = [];
+
+function updateFruitDisplay() {
+  document.getElementById('fruitArray').textContent = JSON.stringify(fruits);
+  document.getElementById('fruitLog').innerHTML = logs.slice(-5).reverse().map(l =>
+    `<div>→ ${l}</div>`).join('');
+}
+
+function fruitStep(action) {
+  if (action === 'reset') {
+    fruits = ["apple", "banana", "orange"];
+    logs.push('reset to ["apple", "banana", "orange"]');
+  } else if (action === 'push') {
+    fruits.push("grape");
+    logs.push('push("grape") → added "grape" to end');
+  } else if (action === 'unshift') {
+    fruits.unshift("mango");
+    logs.push('unshift("mango") → added "mango" to start');
+  } else if (action === 'pop') {
+    const removed = fruits.pop();
+    logs.push(`pop() → removed "${removed}" from end`);
+  } else if (action === 'shift') {
+    const removed = fruits.shift();
+    logs.push(`shift() → removed "${removed}" from start`);
+  }
+  updateFruitDisplay();
+}
+
+updateFruitDisplay();
+
+// Exercise 2 — Array methods
+function parseNums(id) {
+  return document.getElementById(id).value.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+}
+
+function runMethods() {
+  const numbers = parseNums('nums-input');
+  if (!numbers.length) return;
+
+  const doubled = numbers.map(n => n * 2);
+  const evenNumbers = numbers.filter(n => n % 2 === 0);
+  const firstEven = numbers.find(n => n % 2 === 0);
+  const sum = numbers.reduce((acc, n) => acc + n, 0);
+  const hasThree = numbers.includes(3);
+
+  renderLines('methodsOutput', [
+    ['Original:', `[${numbers.join(', ')}]`, ''],
+    ['forEach (×2):', numbers.map(n=>`${n}→${n*2}`).join('  '), 'accent'],
+    ['map(n*2):', `[${doubled.join(', ')}]`, 'accent'],
+    ['filter(even):', `[${evenNumbers.join(', ')}]`, 'purple'],
+    ['find(first even):', String(firstEven ?? 'none'), 'purple'],
+    ['reduce(sum):', String(sum), 'accent'],
+    ['includes(3):', String(hasThree), hasThree ? 'accent' : ''],
+  ]);
+}
+
+// Build — 4 challenges
+function runChallenge() {
+  const numbers = parseNums('challenge-nums');
+  if (!numbers.length) return;
+
+  const doubled = numbers.map(n => n * 2);
+  const positives = numbers.filter(n => n >= 0);
+  const firstBig = numbers.find(n => n > 10);
+  const product = numbers.reduce((acc, n) => acc * n, 1);
+
+  renderLines('challengeOutput', [
+    ['Input:', `[${numbers.join(', ')}]`, ''],
+    ['1. Doubled:', `[${doubled.join(', ')}]`, 'accent'],
+    ['2. No negatives:', `[${positives.join(', ')}]`, 'purple'],
+    ['3. First > 10:', String(firstBig ?? 'none found'), firstBig ? 'accent' : ''],
+    ['4. Product of all:', String(product), 'purple'],
+  ]);
+}
+
+runMethods();
+runChallenge();
+</script>
+</body>
+</html>

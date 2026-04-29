@@ -386,7 +386,6 @@ document.getElementById('btn-add').addEventListener('click', () => {
   if (mathInput.value    !== '') grades.math    = clampGrade(mathInput.value);
   if (englishInput.value !== '') grades.english = clampGrade(englishInput.value);
   if (scienceInput.value !== '') grades.science = clampGrade(scienceInput.value);
-  if (historyInput.value !== '') grades.history = clampGrade(historyInput.value);
 
   if (Object.keys(grades).length === 0) {
     showMessage(msgEl, 'Enter at least one grade.', 'error');

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 7.1 — Variables</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<div class="page-wrap">
+  <a class="back" href="../index.html">← back to home</a>
+
+  <div class="page-header">
+    <div class="task-label">Task 7.1 · Easy</div>
+    <div class="page-title">Variables &amp; <span>Setup</span></div>
+    <p class="page-subtitle">// let · const · typeof · declarations in action</p>
+  </div>
+
+  <!-- Section 1: Variable Declarations -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📦</div>
+      <div class="section-title">Variable Declarations — let vs const</div>
+    </div>
+    <div class="section-body">
+      <div class="code-block"><span class="c-comment">// Variable declarations</span>
+<span class="c-kw">let</span> name = <span class="c-str">"Your Name"</span>;
+<span class="c-kw">let</span> age = <span class="c-num">25</span>;
+<span class="c-kw">const</span> birthYear = <span class="c-num">1999</span>;
+
+<span class="c-comment">// let can be reassigned</span>
+<span class="c-kw">let</span> score = <span class="c-num">100</span>;
+score = <span class="c-num">150</span>;  <span class="c-comment">// ✅ Works!</span>
+
+<span class="c-comment">// const cannot be reassigned</span>
+<span class="c-kw">const</span> PI = <span class="c-num">3.14159</span>;
+<span class="c-comment">// PI = 3;  ❌ Error! const cannot be reassigned</span></div>
+
+      <div class="output-box">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">LIVE OUTPUT</span></div>
+        <div class="output-lines" id="varOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: typeof operator -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔍</div>
+      <div class="section-title">typeof Operator</div>
+    </div>
+    <div class="section-body">
+      <div class="code-block"><span class="c-fn">console</span>.log(<span class="c-kw">typeof</span> <span class="c-str">"hello"</span>);   <span class="c-comment">// "string"</span>
+<span class="c-fn">console</span>.log(<span class="c-kw">typeof</span> <span class="c-num">42</span>);        <span class="c-comment">// "number"</span>
+<span class="c-fn">console</span>.log(<span class="c-kw">typeof</span> <span class="c-kw">true</span>);      <span class="c-comment">// "boolean"</span>
+<span class="c-fn">console</span>.log(<span class="c-kw">typeof</span> <span class="c-kw">undefined</span>); <span class="c-comment">// "undefined"</span>
+<span class="c-fn">console</span>.log(<span class="c-kw">typeof</span> <span class="c-kw">null</span>);      <span class="c-comment">// "object" ← famous JS quirk!</span>
+<span class="c-fn">console</span>.log(<span class="c-kw">typeof</span> []);         <span class="c-comment">// "object"</span>
+<span class="c-fn">console</span>.log(<span class="c-kw">typeof</span> {});         <span class="c-comment">// "object"</span></div>
+      <div class="output-box">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">LIVE OUTPUT</span></div>
+        <div class="output-lines" id="typeofOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Exercise — Your Variables -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">✏️</div>
+      <div class="section-title">Exercise — Declare Your Variables</div>
+    </div>
+    <div class="section-body">
+      <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">Fill in your info and see all variable types in action:</p>
+      <div class="controls">
+        <div class="input-group">
+          <label>YOUR NAME</label>
+          <input type="text" id="inp-name" placeholder="e.g. Alice" value="Alice">
+        </div>
+        <div class="input-group">
+          <label>YOUR AGE</label>
+          <input type="number" id="inp-age" placeholder="e.g. 22" value="22">
+        </div>
+        <div class="input-group">
+          <label>STUDENT?</label>
+          <select id="inp-student">
+            <option value="true">Yes, I am a student</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <button class="btn" onclick="runExercise()">Run →</button>
+      </div>
+      <div id="exerciseOutput" style="display:none">
+        <div class="code-block" id="exerciseCode"></div>
+        <div class="output-box">
+          <div class="output-header"><div class="output-dot"></div><span class="output-label">CONSOLE OUTPUT</span></div>
+          <div class="output-lines" id="exerciseLines"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Task 7.1: JavaScript Variables & Setup ───
+
+// Variable declarations
+let name = "Your Name";
+let age = 25;
+const birthYear = 1999;
+
+// let vs const
+let score = 100;
+score = 150; // Works!
+
+const PI = 3.14159;
+// PI = 3; // Error!
+
+// Helper to render output lines
+function renderLines(containerId, lines) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = lines.map(([k, v, cls]) =>
+    `<div class="output-line"><span class="out-key">${k}</span><span class="out-val ${cls||''}">${v}</span></div>`
+  ).join('');
+}
+
+// Section 1 output
+renderLines('varOutput', [
+  ['typeof name', `"string"`, ''],
+  ['typeof age', `"number"`, 'accent'],
+  ['typeof birthYear', `"number"`, 'accent'],
+  ['score (after reassign)', `150`, 'purple'],
+  ['const PI', `3.14159`, ''],
+  ['PI = 3', `❌ TypeError: Assignment to constant variable`, 'out-val'],
+]);
+
+// Section 2 output
+renderLines('typeofOutput', [
+  ['typeof "hello"', `"string"`, ''],
+  ['typeof 42', `"number"`, 'accent'],
+  ['typeof true', `"boolean"`, 'purple'],
+  ['typeof undefined', `"undefined"`, ''],
+  ['typeof null', `"object"  ← famous JS quirk!`, ''],
+  ['typeof []', `"object"`, ''],
+  ['typeof {}', `"object"`, ''],
+]);
+
+// Exercise
+function runExercise() {
+  const n = document.getElementById('inp-name').value || 'Guest';
+  const a = parseInt(document.getElementById('inp-age').value) || 0;
+  const isStudent = document.getElementById('inp-student').value === 'true';
+  const favoriteColors = ["blue", "green", "black"];
+  const today = new Date();
+
+  document.getElementById('exerciseCode').innerHTML =
+`<span class="c-comment">// Your variables:</span>
+<span class="c-kw">let</span> name = <span class="c-str">"${n}"</span>;
+<span class="c-kw">let</span> age = <span class="c-num">${a}</span>;
+<span class="c-kw">const</span> isStudent = <span class="c-kw">${isStudent}</span>;
+<span class="c-kw">const</span> favoriteColors = [<span class="c-str">"blue"</span>, <span class="c-str">"green"</span>, <span class="c-str">"black"</span>];
+<span class="c-kw">const</span> today = <span class="c-kw">new</span> <span class="c-fn">Date</span>();`;
+
+  renderLines('exerciseLines', [
+    ['Name:', `"${n}"  (type: ${typeof n})`, ''],
+    ['Age:', `${a}  (type: ${typeof a})`, 'accent'],
+    ['isStudent:', `${isStudent}  (type: ${typeof isStudent})`, 'purple'],
+    ['favoriteColors:', `[${favoriteColors.map(c=>`"${c}"`).join(', ')}]  (type: ${typeof favoriteColors})`, ''],
+    ['Today:', `${today.toDateString()}  (type: ${typeof today})`, ''],
+  ]);
+
+  document.getElementById('exerciseOutput').style.display = 'block';
+}
+
+runExercise();
+</script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 7.4 — Control Flow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<div class="page-wrap">
+  <a class="back" href="../index.html">← back to home</a>
+
+  <div class="page-header">
+    <div class="task-label">Task 7.4 · Medium</div>
+    <div class="page-title">Control <span>Flow</span></div>
+    <p class="page-subtitle">// if/else · switch · for · while · for...of</p>
+  </div>
+
+  <!-- Exercise 1: Grade -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📊</div>
+      <div class="section-title">Exercise 1 — getGrade (if/else)</div>
+    </div>
+    <div class="section-body">
+      <div class="code-block"><span class="c-kw">function</span> <span class="c-fn">getGrade</span>(score) {
+    <span class="c-kw">if</span> (score >= <span class="c-num">90</span>)  <span class="c-kw">return</span> <span class="c-str">"A"</span>;
+    <span class="c-kw">else if</span> (score >= <span class="c-num">80</span>) <span class="c-kw">return</span> <span class="c-str">"B"</span>;
+    <span class="c-kw">else if</span> (score >= <span class="c-num">70</span>) <span class="c-kw">return</span> <span class="c-str">"C"</span>;
+    <span class="c-kw">else if</span> (score >= <span class="c-num">60</span>) <span class="c-kw">return</span> <span class="c-str">"D"</span>;
+    <span class="c-kw">else</span>               <span class="c-kw">return</span> <span class="c-str">"F"</span>;
+}</div>
+      <div class="controls">
+        <div class="input-group"><label>SCORE (0–100)</label><input type="number" id="grade-score" value="87" min="0" max="100"></div>
+        <button class="btn" onclick="runGrade()">Get Grade →</button>
+      </div>
+      <div class="result-card" id="gradeResult">
+        <div class="result-label">getGrade(score)</div>
+        <div class="result-value" id="gradeVal">—</div>
+      </div>
+      <div style="height:12px"></div>
+      <div class="output-box">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">ALL GRADES</span></div>
+        <div class="output-lines" id="allGrades"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise 2: Switch -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📅</div>
+      <div class="section-title">Exercise 2 — getDayName (switch)</div>
+    </div>
+    <div class="section-body">
+      <div class="code-block"><span class="c-kw">function</span> <span class="c-fn">getDayName</span>(dayNumber) {
+    <span class="c-kw">switch</span> (dayNumber) {
+        <span class="c-kw">case</span> <span class="c-num">0</span>: <span class="c-kw">return</span> <span class="c-str">"Sunday"</span>;
+        <span class="c-kw">case</span> <span class="c-num">1</span>: <span class="c-kw">return</span> <span class="c-str">"Monday"</span>;
+        <span class="c-kw">case</span> <span class="c-num">2</span>: <span class="c-kw">return</span> <span class="c-str">"Tuesday"</span>;
+        <span class="c-kw">case</span> <span class="c-num">3</span>: <span class="c-kw">return</span> <span class="c-str">"Wednesday"</span>;
+        <span class="c-kw">case</span> <span class="c-num">4</span>: <span class="c-kw">return</span> <span class="c-str">"Thursday"</span>;
+        <span class="c-kw">case</span> <span class="c-num">5</span>: <span class="c-kw">return</span> <span class="c-str">"Friday"</span>;
+        <span class="c-kw">case</span> <span class="c-num">6</span>: <span class="c-kw">return</span> <span class="c-str">"Saturday"</span>;
+        <span class="c-kw">default</span>: <span class="c-kw">return</span> <span class="c-str">"Invalid day"</span>;
+    }
+}</div>
+      <div class="output-box" style="margin-top:12px;">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">ALL DAYS</span></div>
+        <div class="output-lines" id="daysOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise 3: Loops -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔁</div>
+      <div class="section-title">Exercise 3 — Loops: 1–100, Evens, FizzBuzz, Triangle</div>
+    </div>
+    <div class="section-body">
+      <div class="controls" style="margin-bottom:0">
+        <button class="btn secondary" onclick="showLoop('numbers')">1–100</button>
+        <button class="btn secondary" onclick="showLoop('evens')">Evens 1–50</button>
+        <button class="btn secondary" onclick="showLoop('fizzbuzz')">FizzBuzz</button>
+        <button class="btn secondary" onclick="showLoop('triangle')">★ Triangle</button>
+      </div>
+      <div style="height:16px"></div>
+      <div class="code-block" id="loopCode" style="max-height:160px;overflow-y:auto;"></div>
+      <div class="output-box" style="margin-top:12px;">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">OUTPUT</span></div>
+        <div style="padding:16px;max-height:240px;overflow-y:auto;" id="loopOutput"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Task 7.4: Control Flow ───
+
+function renderLines(id, lines) {
+  document.getElementById(id).innerHTML = lines.map(([k,v,cls]) =>
+    `<div class="output-line"><span class="out-key">${k}</span><span class="out-val ${cls||''}">${v}</span></div>`
+  ).join('');
+}
+
+// Exercise 1 — getGrade
+function getGrade(score) {
+  if (score >= 90) return "A";
+  else if (score >= 80) return "B";
+  else if (score >= 70) return "C";
+  else if (score >= 60) return "D";
+  else return "F";
+}
+
+function runGrade() {
+  const score = parseInt(document.getElementById('grade-score').value) || 0;
+  const grade = getGrade(score);
+  const colors = {A:'accent', B:'purple', C:'', D:'', F:'out-val'};
+  document.getElementById('gradeVal').textContent = `Grade: ${grade}  (score: ${score})`;
+}
+
+// All grades table
+renderLines('allGrades', [
+  ['getGrade(95)', 'A', 'accent'],
+  ['getGrade(85)', 'B', 'purple'],
+  ['getGrade(75)', 'C', ''],
+  ['getGrade(65)', 'D', ''],
+  ['getGrade(50)', 'F', ''],
+]);
+
+// Exercise 2 — getDayName
+function getDayName(dayNumber) {
+  switch(dayNumber) {
+    case 0: return "Sunday";
+    case 1: return "Monday";
+    case 2: return "Tuesday";
+    case 3: return "Wednesday";
+    case 4: return "Thursday";
+    case 5: return "Friday";
+    case 6: return "Saturday";
+    default: return "Invalid day";
+  }
+}
+
+const today = new Date().getDay();
+renderLines('daysOutput',
+  [0,1,2,3,4,5,6].map(d => [
+    `getDayName(${d})`,
+    `${getDayName(d)}${d === today ? '  ← today!' : ''}`,
+    d === today ? 'accent' : ''
+  ])
+);
+
+// Exercise 3 — Loops
+const loopCodes = {
+  numbers: `<span class="c-comment">// Print numbers 1–100</span>
+<span class="c-kw">for</span> (<span class="c-kw">let</span> i = <span class="c-num">1</span>; i <= <span class="c-num">100</span>; i++) {
+    <span class="c-fn">console</span>.log(i);
+}`,
+  evens: `<span class="c-comment">// Print only even numbers 1–50</span>
+<span class="c-kw">for</span> (<span class="c-kw">let</span> i = <span class="c-num">1</span>; i <= <span class="c-num">50</span>; i++) {
+    <span class="c-kw">if</span> (i % <span class="c-num">2</span> === <span class="c-num">0</span>) <span class="c-fn">console</span>.log(i);
+}`,
+  fizzbuzz: `<span class="c-comment">// FizzBuzz 1–30</span>
+<span class="c-kw">for</span> (<span class="c-kw">let</span> i = <span class="c-num">1</span>; i <= <span class="c-num">30</span>; i++) {
+    <span class="c-kw">if</span> (i % <span class="c-num">15</span> === <span class="c-num">0</span>)     <span class="c-fn">console</span>.log(<span class="c-str">"FizzBuzz"</span>);
+    <span class="c-kw">else if</span> (i % <span class="c-num">3</span> === <span class="c-num">0</span>)  <span class="c-fn">console</span>.log(<span class="c-str">"Fizz"</span>);
+    <span class="c-kw">else if</span> (i % <span class="c-num">5</span> === <span class="c-num">0</span>)  <span class="c-fn">console</span>.log(<span class="c-str">"Buzz"</span>);
+    <span class="c-kw">else</span>                  <span class="c-fn">console</span>.log(i);
+}`,
+  triangle: `<span class="c-comment">// Triangle of stars</span>
+<span class="c-kw">for</span> (<span class="c-kw">let</span> i = <span class="c-num">1</span>; i <= <span class="c-num">8</span>; i++) {
+    <span class="c-fn">console</span>.log(<span class="c-str">"★"</span>.repeat(i));
+}`
+};
+
+function showLoop(type) {
+  document.getElementById('loopCode').innerHTML = loopCodes[type];
+  const out = document.getElementById('loopOutput');
+
+  if (type === 'numbers') {
+    const nums = Array.from({length:100},(_,i)=>i+1);
+    out.innerHTML = `<div style="color:var(--accent);font-size:12px;line-height:2;word-spacing:8px;">${nums.join('  ')}</div>`;
+  }
+  else if (type === 'evens') {
+    const evens = Array.from({length:50},(_,i)=>i+1).filter(n=>n%2===0);
+    out.innerHTML = `<div style="color:var(--green);font-size:12px;line-height:2;word-spacing:8px;">${evens.join('  ')}</div>`;
+  }
+  else if (type === 'fizzbuzz') {
+    const lines = [];
+    for(let i=1;i<=30;i++){
+      let val, cls='';
+      if(i%15===0){val='FizzBuzz';cls='style="color:var(--accent2)"';}
+      else if(i%3===0){val='Fizz';cls='style="color:var(--accent)"';}
+      else if(i%5===0){val='Buzz';cls='style="color:var(--green)"';}
+      else{val=i;cls='';}
+      lines.push(`<div class="output-line"><span class="out-key">${i}</span><span ${cls}>${val}</span></div>`);
+    }
+    out.innerHTML = lines.join('');
+  }
+  else if (type === 'triangle') {
+    let html = '';
+    for(let i=1;i<=8;i++){
+      html += `<div style="color:var(--accent);font-size:14px;line-height:1.8;letter-spacing:4px;">${'★'.repeat(i)}</div>`;
+    }
+    out.innerHTML = html;
+  }
+}
+
+// Auto-run
+runGrade();
+showLoop('fizzbuzz');
+</script>
+</body>
+</html>

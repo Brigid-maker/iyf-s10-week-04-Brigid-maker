@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 7.2 — Operators</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<div class="page-wrap">
+  <a class="back" href="../index.html">← back to home</a>
+
+  <div class="page-header">
+    <div class="task-label">Task 7.2 · Easy</div>
+    <div class="page-title">Data Types &amp; <span>Operators</span></div>
+    <p class="page-subtitle">// Math · Strings · Comparison · Logical</p>
+  </div>
+
+  <!-- Exercise 1: Number Operations -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔢</div>
+      <div class="section-title">Exercise 1 — Number Operations</div>
+    </div>
+    <div class="section-body">
+      <div class="controls">
+        <div class="input-group">
+          <label>A</label>
+          <input type="number" id="num-a" value="10">
+        </div>
+        <div class="input-group">
+          <label>B</label>
+          <input type="number" id="num-b" value="3">
+        </div>
+        <button class="btn" onclick="runMath()">Calculate →</button>
+      </div>
+      <div class="output-box">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">MATH OUTPUT</span></div>
+        <div class="output-lines" id="mathOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise 2: String Operations -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">💬</div>
+      <div class="section-title">Exercise 2 — String Operations</div>
+    </div>
+    <div class="section-body">
+      <div class="controls">
+        <div class="input-group">
+          <label>FIRST NAME</label>
+          <input type="text" id="str-first" value="John">
+        </div>
+        <div class="input-group">
+          <label>LAST NAME</label>
+          <input type="text" id="str-last" value="Doe">
+        </div>
+        <button class="btn" onclick="runStrings()">Run →</button>
+      </div>
+      <div class="code-block" id="stringCode"></div>
+      <div class="output-box">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">STRING OUTPUT</span></div>
+        <div class="output-lines" id="stringOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise 3: Comparison & Logical -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">⚖️</div>
+      <div class="section-title">Exercise 3 — Comparison &amp; Logical Operators</div>
+    </div>
+    <div class="section-body">
+      <div class="code-block"><span class="c-comment">// Comparison operators</span>
+<span class="c-fn">console</span>.log(<span class="c-num">5</span> > <span class="c-num">3</span>);     <span class="c-comment">// true</span>
+<span class="c-fn">console</span>.log(<span class="c-num">5</span> < <span class="c-num">3</span>);     <span class="c-comment">// false</span>
+<span class="c-fn">console</span>.log(<span class="c-num">5</span> === <span class="c-num">5</span>);   <span class="c-comment">// true  (strict — same type!)</span>
+<span class="c-fn">console</span>.log(<span class="c-num">5</span> == <span class="c-str">"5"</span>);  <span class="c-comment">// true  (loose — avoid this!)</span>
+<span class="c-fn">console</span>.log(<span class="c-num">5</span> !== <span class="c-num">3</span>);   <span class="c-comment">// true</span>
+
+<span class="c-comment">// Logical operators</span>
+<span class="c-fn">console</span>.log(<span class="c-kw">true</span> && <span class="c-kw">true</span>);   <span class="c-comment">// AND → true</span>
+<span class="c-fn">console</span>.log(<span class="c-kw">true</span> || <span class="c-kw">false</span>);  <span class="c-comment">// OR  → true</span>
+<span class="c-fn">console</span>.log(!<span class="c-kw">true</span>);           <span class="c-comment">// NOT → false</span></div>
+      <div class="output-box">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">LIVE OUTPUT</span></div>
+        <div class="output-lines" id="logicOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Challenge -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏆</div>
+      <div class="section-title">Challenge — Age Calculator</div>
+    </div>
+    <div class="section-body">
+      <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">Enter your birth year to calculate your age in days, hours, and when you'll turn 100:</p>
+      <div class="controls">
+        <div class="input-group">
+          <label>BIRTH YEAR</label>
+          <input type="number" id="birth-year" value="2000" min="1900" max="2010">
+        </div>
+        <button class="btn" onclick="runChallenge()">Calculate →</button>
+      </div>
+      <div id="challengeOutput" style="display:none">
+        <div class="output-box" style="margin-top:16px;">
+          <div class="output-header"><div class="output-dot"></div><span class="output-label">RESULTS</span></div>
+          <div class="output-lines" id="challengeLines"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Task 7.2: Data Types & Operators ───
+
+function renderLines(id, lines) {
+  document.getElementById(id).innerHTML = lines.map(([k,v,cls]) =>
+    `<div class="output-line"><span class="out-key">${k}</span><span class="out-val ${cls||''}">${v}</span></div>`
+  ).join('');
+}
+
+// Exercise 1: Numbers
+function runMath() {
+  const a = parseFloat(document.getElementById('num-a').value) || 0;
+  const b = parseFloat(document.getElementById('num-b').value) || 0;
+  renderLines('mathOutput', [
+    [`${a} + ${b}`, `${a + b}`, 'accent'],
+    [`${a} - ${b}`, `${a - b}`, 'accent'],
+    [`${a} * ${b}`, `${a * b}`, 'accent'],
+    [`${a} / ${b}`, b === 0 ? '❌ Cannot divide by zero' : `${(a/b).toFixed(4)}`, 'accent'],
+    [`${a} % ${b}`, b === 0 ? '❌ Cannot mod by zero' : `${a % b}`, 'purple'],
+    [`${a} ** ${b}`, `${a ** b}`, 'purple'],
+    [`count++ (from 0)`, `1`, ''],
+    [`count-- (from 1)`, `0`, ''],
+  ]);
+}
+
+// Exercise 2: Strings
+function runStrings() {
+  const first = document.getElementById('str-first').value || 'John';
+  const last = document.getElementById('str-last').value || 'Doe';
+  const fullName = first + ' ' + last;
+  const greeting = `Hello, ${first}!`;
+  const message = `Your name has ${first.length} characters.`;
+
+  document.getElementById('stringCode').innerHTML =
+`<span class="c-kw">let</span> firstName = <span class="c-str">"${first}"</span>;
+<span class="c-kw">let</span> lastName = <span class="c-str">"${last}"</span>;
+<span class="c-kw">let</span> fullName = firstName + <span class="c-str">" "</span> + lastName; <span class="c-comment">// "${fullName}"</span>
+<span class="c-kw">let</span> greeting = <span class="c-str">\`Hello, \${firstName}!\`</span>;  <span class="c-comment">// template literal</span>`;
+
+  renderLines('stringOutput', [
+    ['Concatenation:', fullName, ''],
+    ['Template literal:', greeting, 'accent'],
+    ['Length message:', message, ''],
+    ['.toUpperCase():', fullName.toUpperCase(), 'purple'],
+    ['.toLowerCase():', fullName.toLowerCase(), ''],
+    ['.charAt(0):', first.charAt(0), 'accent'],
+    [`.includes("${first}")`, `${fullName.includes(first)}`, first.length > 0 ? 'accent' : ''],
+  ]);
+}
+
+// Exercise 3: Logic (static)
+renderLines('logicOutput', [
+  ['5 > 3', 'true', 'accent'],
+  ['5 < 3', 'false', ''],
+  ['5 === 5  (strict)', 'true', 'accent'],
+  ['5 == "5"  (loose — avoid!)', 'true  ⚠️', ''],
+  ['5 !== 3', 'true', 'accent'],
+  ['true && true', 'true', 'purple'],
+  ['true || false', 'true', 'purple'],
+  ['!true', 'false', ''],
+]);
+
+// Challenge
+function runChallenge() {
+  const birthYear = parseInt(document.getElementById('birth-year').value);
+  const currentYear = new Date().getFullYear();
+  const approxAge = currentYear - birthYear;
+  const ageInDays = Math.round(approxAge * 365.25);
+  const ageInHours = ageInDays * 24;
+  const turn100 = birthYear + 100;
+
+  renderLines('challengeLines', [
+    ['Birth Year:', birthYear, ''],
+    ['Approximate Age:', `${approxAge} years`, 'accent'],
+    ['Age in Days:', `~${ageInDays.toLocaleString()} days`, 'accent'],
+    ['Age in Hours:', `~${ageInHours.toLocaleString()} hours`, 'purple'],
+    ['Will turn 100 in:', `${turn100}`, ''],
+  ]);
+
+  document.getElementById('challengeOutput').style.display = 'block';
+}
+
+// Auto-run on load
+runMath();
+runStrings();
+runChallenge();
+</script>
+</body>
+</html>

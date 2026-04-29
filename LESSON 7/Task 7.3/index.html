@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 7.3 — Functions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared.css">
+</head>
+<body>
+<div class="page-wrap">
+  <a class="back" href="../index.html">← back to home</a>
+
+  <div class="page-header">
+    <div class="task-label">Task 7.3 · Medium</div>
+    <div class="page-title"><span>Functions</span></div>
+    <p class="page-subtitle">// Declarations · Expressions · Arrows · Default Parameters</p>
+  </div>
+
+  <!-- Exercise 1: Function Types -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔧</div>
+      <div class="section-title">Exercise 1 — Three Ways to Write a Function</div>
+    </div>
+    <div class="section-body">
+      <div class="code-block"><span class="c-comment">// 1. Function Declaration (hoisted — can be called before defined)</span>
+<span class="c-kw">function</span> <span class="c-fn">greet</span>(name) {
+    <span class="c-kw">return</span> <span class="c-str">`Hello, ${name}!`</span>;
+}
+
+<span class="c-comment">// 2. Function Expression (assigned to variable)</span>
+<span class="c-kw">const</span> add = <span class="c-kw">function</span>(a, b) {
+    <span class="c-kw">return</span> a + b;
+};
+
+<span class="c-comment">// 3. Arrow Function (concise, no own 'this')</span>
+<span class="c-kw">const</span> multiply = (a, b) => a * b;
+
+<span class="c-comment">// Arrow with body block (multi-line)</span>
+<span class="c-kw">const</span> divide = (a, b) => {
+    <span class="c-kw">if</span> (b === <span class="c-num">0</span>) <span class="c-kw">return</span> <span class="c-str">"Cannot divide by zero"</span>;
+    <span class="c-kw">return</span> a / b;
+};</div>
+      <div class="output-box">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">OUTPUT</span></div>
+        <div class="output-lines" id="fnTypesOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise 2: Build Functions -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">⚙️</div>
+      <div class="section-title">Exercise 2 — Five Built Functions (Interactive)</div>
+    </div>
+    <div class="section-body">
+
+      <!-- calculateArea -->
+      <p style="color:var(--accent);font-size:12px;letter-spacing:0.1em;margin-bottom:8px;">CALCULATE AREA</p>
+      <div class="controls">
+        <div class="input-group"><label>WIDTH</label><input type="number" id="area-w" value="8"></div>
+        <div class="input-group"><label>HEIGHT</label><input type="number" id="area-h" value="5"></div>
+        <button class="btn" onclick="runArea()">Run →</button>
+      </div>
+      <div class="result-card" id="areaResult">
+        <div class="result-label">calculateArea(width, height)</div>
+        <div class="result-value" id="areaVal">—</div>
+      </div>
+
+      <div style="height:24px"></div>
+
+      <!-- celsiusToFahrenheit -->
+      <p style="color:var(--accent);font-size:12px;letter-spacing:0.1em;margin-bottom:8px;">CELSIUS → FAHRENHEIT</p>
+      <div class="controls">
+        <div class="input-group"><label>CELSIUS</label><input type="number" id="temp-c" value="100"></div>
+        <button class="btn" onclick="runTemp()">Convert →</button>
+      </div>
+      <div class="result-card" id="tempResult">
+        <div class="result-label">celsiusToFahrenheit(celsius)</div>
+        <div class="result-value" id="tempVal">—</div>
+      </div>
+
+      <div style="height:24px"></div>
+
+      <!-- isEven -->
+      <p style="color:var(--accent);font-size:12px;letter-spacing:0.1em;margin-bottom:8px;">IS EVEN?</p>
+      <div class="controls">
+        <div class="input-group"><label>NUMBER</label><input type="number" id="even-n" value="42"></div>
+        <button class="btn" onclick="runEven()">Check →</button>
+      </div>
+      <div class="result-card" id="evenResult">
+        <div class="result-label">isEven(number)</div>
+        <div class="result-value" id="evenVal">—</div>
+      </div>
+
+      <div style="height:24px"></div>
+
+      <!-- getInitials -->
+      <p style="color:var(--accent);font-size:12px;letter-spacing:0.1em;margin-bottom:8px;">GET INITIALS</p>
+      <div class="controls">
+        <div class="input-group" style="flex:2"><label>FULL NAME</label><input type="text" id="init-name" value="John Doe"></div>
+        <button class="btn" onclick="runInitials()">Get →</button>
+      </div>
+      <div class="result-card" id="initialsResult">
+        <div class="result-label">getInitials(fullName)</div>
+        <div class="result-value" id="initialsVal">—</div>
+      </div>
+
+      <div style="height:24px"></div>
+
+      <!-- reverseString -->
+      <p style="color:var(--accent);font-size:12px;letter-spacing:0.1em;margin-bottom:8px;">REVERSE STRING</p>
+      <div class="controls">
+        <div class="input-group" style="flex:2"><label>STRING</label><input type="text" id="rev-str" value="JavaScript"></div>
+        <button class="btn" onclick="runReverse()">Reverse →</button>
+      </div>
+      <div class="result-card" id="reverseResult">
+        <div class="result-label">reverseString(str)</div>
+        <div class="result-value" id="reverseVal">—</div>
+      </div>
+
+      <div style="height:20px"></div>
+      <div class="code-block"><span class="c-comment">// All five functions:</span>
+<span class="c-kw">function</span> <span class="c-fn">calculateArea</span>(width, height) { <span class="c-kw">return</span> width * height; }
+
+<span class="c-kw">function</span> <span class="c-fn">celsiusToFahrenheit</span>(celsius) { <span class="c-kw">return</span> (celsius * <span class="c-num">9</span>/<span class="c-num">5</span>) + <span class="c-num">32</span>; }
+
+<span class="c-kw">function</span> <span class="c-fn">isEven</span>(number) { <span class="c-kw">return</span> number % <span class="c-num">2</span> === <span class="c-num">0</span>; }
+
+<span class="c-kw">function</span> <span class="c-fn">getInitials</span>(fullName) {
+    <span class="c-kw">return</span> fullName.split(<span class="c-str">' '</span>).map(word => word[<span class="c-num">0</span>].toUpperCase()).join(<span class="c-str">''</span>);
+}
+
+<span class="c-kw">function</span> <span class="c-fn">reverseString</span>(str) { <span class="c-kw">return</span> str.split(<span class="c-str">''</span>).reverse().join(<span class="c-str">''</span>); }</div>
+    </div>
+  </div>
+
+  <!-- Exercise 3: Default Parameters -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🎯</div>
+      <div class="section-title">Exercise 3 — Default Parameters &amp; calculateTip</div>
+    </div>
+    <div class="section-body">
+      <div class="code-block"><span class="c-kw">function</span> <span class="c-fn">greet</span>(name = <span class="c-str">"Guest"</span>, greeting = <span class="c-str">"Hello"</span>) {
+    <span class="c-kw">return</span> <span class="c-str">`${greeting}, ${name}!`</span>;
+}
+<span class="c-fn">greet</span>();              <span class="c-comment">// "Hello, Guest!"</span>
+<span class="c-fn">greet</span>(<span class="c-str">"Alice"</span>);       <span class="c-comment">// "Hello, Alice!"</span>
+<span class="c-fn">greet</span>(<span class="c-str">"Bob"</span>, <span class="c-str">"Hi"</span>);   <span class="c-comment">// "Hi, Bob!"</span>
+
+<span class="c-kw">function</span> <span class="c-fn">calculateTip</span>(bill, tipPercent = <span class="c-num">15</span>) {
+    <span class="c-kw">return</span> (bill * tipPercent) / <span class="c-num">100</span>;
+}</span></div>
+      <div class="output-box">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">DEFAULT PARAMS OUTPUT</span></div>
+        <div class="output-lines" id="defaultOutput"></div>
+      </div>
+
+      <div style="height:20px"></div>
+      <p style="color:var(--accent);font-size:12px;letter-spacing:0.1em;margin-bottom:12px;">TIP CALCULATOR</p>
+      <div class="controls">
+        <div class="input-group"><label>BILL ($)</label><input type="number" id="tip-bill" value="85"></div>
+        <div class="input-group"><label>TIP % (default 15)</label><input type="number" id="tip-pct" placeholder="15"></div>
+        <button class="btn" onclick="runTip()">Calculate →</button>
+      </div>
+      <div class="result-card" id="tipResult">
+        <div class="result-label">calculateTip(bill, tipPercent)</div>
+        <div class="result-value" id="tipVal">—</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Task 7.3: Functions ───
+
+// Exercise 1 — Function types
+function greet(name) { return `Hello, ${name}!`; }
+const add = function(a, b) { return a + b; };
+const multiply = (a, b) => a * b;
+const divide = (a, b) => {
+  if (b === 0) return "Cannot divide by zero";
+  return a / b;
+};
+
+function renderLines(id, lines) {
+  document.getElementById(id).innerHTML = lines.map(([k,v,cls]) =>
+    `<div class="output-line"><span class="out-key">${k}</span><span class="out-val ${cls||''}">${v}</span></div>`
+  ).join('');
+}
+
+renderLines('fnTypesOutput', [
+  ['greet("Alice")', greet("Alice"), 'accent'],
+  ['add(5, 3)', String(add(5, 3)), ''],
+  ['multiply(4, 7)', String(multiply(4, 7)), 'purple'],
+  ['divide(10, 4)', String(divide(10, 4)), ''],
+  ['divide(5, 0)', divide(5, 0), ''],
+]);
+
+// Exercise 2 — Five functions
+function calculateArea(width, height) { return width * height; }
+function celsiusToFahrenheit(celsius) { return (celsius * 9/5) + 32; }
+function isEven(number) { return number % 2 === 0; }
+function getInitials(fullName) {
+  return fullName.trim().split(/\s+/).map(w => w[0].toUpperCase()).join('');
+}
+function reverseString(str) { return str.split('').reverse().join(''); }
+
+function runArea() {
+  const w = parseFloat(document.getElementById('area-w').value)||0;
+  const h = parseFloat(document.getElementById('area-h').value)||0;
+  document.getElementById('areaVal').textContent = `${calculateArea(w,h)} sq units`;
+}
+function runTemp() {
+  const c = parseFloat(document.getElementById('temp-c').value)||0;
+  document.getElementById('tempVal').textContent = `${celsiusToFahrenheit(c).toFixed(2)} °F`;
+}
+function runEven() {
+  const n = parseInt(document.getElementById('even-n').value)||0;
+  document.getElementById('evenVal').textContent = `${n} is ${isEven(n) ? '✅ EVEN' : '❌ ODD'}`;
+}
+function runInitials() {
+  const name = document.getElementById('init-name').value||'John Doe';
+  document.getElementById('initialsVal').textContent = getInitials(name);
+}
+function runReverse() {
+  const s = document.getElementById('rev-str').value||'hello';
+  document.getElementById('reverseVal').textContent = reverseString(s);
+}
+
+// Exercise 3 — Default params
+function greetDefault(name = "Guest", greeting = "Hello") { return `${greeting}, ${name}!`; }
+function calculateTip(bill, tipPercent = 15) { return (bill * tipPercent) / 100; }
+
+renderLines('defaultOutput', [
+  ['greet()', greetDefault(), 'accent'],
+  ['greet("Alice")', greetDefault("Alice"), 'accent'],
+  ['greet("Bob", "Hi")', greetDefault("Bob", "Hi"), 'accent'],
+  ['calculateTip(100)', `$${calculateTip(100).toFixed(2)}`, 'purple'],
+  ['calculateTip(100, 20)', `$${calculateTip(100, 20).toFixed(2)}`, 'purple'],
+]);
+
+function runTip() {
+  const bill = parseFloat(document.getElementById('tip-bill').value)||0;
+  const pct = parseFloat(document.getElementById('tip-pct').value)||15;
+  const tip = calculateTip(bill, pct);
+  document.getElementById('tipVal').textContent =
+    `Tip: $${tip.toFixed(2)}  |  Total: $${(bill + tip).toFixed(2)}`;
+}
+
+// Auto-run
+runArea(); runTemp(); runEven(); runInitials(); runReverse(); runTip();
+</script>
+</body>
+</html>

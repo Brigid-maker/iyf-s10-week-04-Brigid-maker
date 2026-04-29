@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 8.2 — Objects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared.css">
+  <style>
+    .obj-display {
+      background: #0d0d14;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px;
+      font-size: 13px;
+      line-height: 2;
+    }
+    .obj-key { color: var(--accent2); }
+    .obj-str { color: var(--green); }
+    .obj-num { color: #f97316; }
+    .obj-bool { color: var(--accent); }
+    .obj-arr { color: var(--muted); }
+    .obj-nested { margin-left: 24px; border-left: 2px solid var(--border); padding-left: 12px; }
+    .prop-tag {
+      display: inline-block; padding: 2px 8px; border-radius: 2px;
+      font-size: 10px; margin-left: 8px;
+    }
+    .prop-added { background: rgba(74,240,130,0.12); color: var(--green); }
+    .prop-deleted { background: rgba(240,74,74,0.12); color: var(--red); text-decoration: line-through; }
+    .prop-modified { background: rgba(240,225,74,0.12); color: var(--accent); }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+  <a class="back" href="../index.html">← back to home</a>
+
+  <div class="page-header">
+    <div class="task-label">Task 8.2 · Medium</div>
+    <div class="page-title"><span>Objects</span></div>
+    <p class="page-subtitle">// Properties · Methods · Iteration · Object.keys/values/entries</p>
+  </div>
+
+  <!-- Exercise 1: Object Basics -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">👤</div>
+      <div class="section-title">Exercise 1 — Person Object (Live Mutation)</div>
+    </div>
+    <div class="section-body">
+      <p style="color:var(--muted);font-size:12px;margin-bottom:16px;">Click the buttons to mutate the object and watch it update in real time:</p>
+      <div class="controls">
+        <button class="btn secondary" onclick="mutateObj('age')">person.age = 31</button>
+        <button class="btn secondary" onclick="mutateObj('email')">add email</button>
+        <button class="btn secondary" onclick="mutateObj('delete')">delete isStudent</button>
+        <button class="btn secondary" onclick="mutateObj('reset')">reset</button>
+      </div>
+      <div style="height:12px"></div>
+      <div class="obj-display" id="personDisplay"></div>
+      <div id="mutateLog" style="margin-top:8px;font-size:12px;color:var(--muted);line-height:1.8;"></div>
+    </div>
+  </div>
+
+  <!-- Exercise 2: Object Methods -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">⚙️</div>
+      <div class="section-title">Exercise 2 — Object Methods (Calculator Object)</div>
+    </div>
+    <div class="section-body">
+      <div class="code-block"><span class="c-kw">const</span> calculator = {
+    <span class="c-fn">add</span>: <span class="c-kw">function</span>(a, b) { <span class="c-kw">return</span> a + b; },
+    <span class="c-fn">subtract</span>(a, b) { <span class="c-kw">return</span> a - b; },   <span class="c-comment">// shorthand</span>
+    multiply: (a, b) => a * b             <span class="c-comment">// arrow fn</span>
+};</div>
+      <div class="controls">
+        <div class="input-group"><label>A</label><input type="number" id="obj-a" value="12"></div>
+        <div class="input-group"><label>B</label><input type="number" id="obj-b" value="4"></div>
+        <button class="btn" onclick="runCalcObj()">Run →</button>
+      </div>
+      <div class="output-box" style="margin-top:12px;">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">CALCULATOR OBJECT OUTPUT</span></div>
+        <div class="output-lines" id="calcObjOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise 3: Object Iteration -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔄</div>
+      <div class="section-title">Exercise 3 — Object.keys / .values / .entries</div>
+    </div>
+    <div class="section-body">
+      <div class="code-block"><span class="c-kw">const</span> scores = { math: <span class="c-num">95</span>, english: <span class="c-num">88</span>, science: <span class="c-num">92</span> };
+
+Object.<span class="c-fn">keys</span>(scores);    <span class="c-comment">// ["math", "english", "science"]</span>
+Object.<span class="c-fn">values</span>(scores);  <span class="c-comment">// [95, 88, 92]</span>
+Object.<span class="c-fn">entries</span>(scores); <span class="c-comment">// [["math", 95], ["english", 88], ...]</span>
+
+<span class="c-kw">for</span> (<span class="c-kw">const</span> [subject, score] <span class="c-kw">of</span> Object.<span class="c-fn">entries</span>(scores)) {
+    <span class="c-fn">console</span>.log(<span class="c-str">`${subject}: ${score}`</span>);
+}</div>
+      <div class="controls">
+        <div class="input-group"><label>MATH</label><input type="number" id="s-math" value="95" min="0" max="100"></div>
+        <div class="input-group"><label>ENGLISH</label><input type="number" id="s-english" value="88" min="0" max="100"></div>
+        <div class="input-group"><label>SCIENCE</label><input type="number" id="s-science" value="92" min="0" max="100"></div>
+        <button class="btn" onclick="runIteration()">Run →</button>
+      </div>
+      <div class="output-box" style="margin-top:16px;">
+        <div class="output-header"><div class="output-dot"></div><span class="output-label">ITERATION OUTPUT</span></div>
+        <div class="output-lines" id="iterOutput"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Task 8.2: Objects ───
+
+function renderLines(id, lines) {
+  document.getElementById(id).innerHTML = lines.map(([k,v,cls]) =>
+    `<div class="output-line"><span class="out-key">${k}</span><span class="out-val ${cls||''}">${v}</span></div>`
+  ).join('');
+}
+
+// Exercise 1 — Person object
+let person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 30,
+  isStudent: false,
+  hobbies: ["reading", "coding", "gaming"],
+  address: { city: "New York", country: "USA" }
+};
+let mutateLog = [];
+let modifications = {};
+
+function renderPerson() {
+  const p = person;
+  const d = document.getElementById('personDisplay');
+  d.innerHTML = `{<br>
+  <div style="margin-left:20px">
+    <span class="obj-key">firstName</span>: <span class="obj-str">"${p.firstName}"</span>,<br>
+    <span class="obj-key">lastName</span>: <span class="obj-str">"${p.lastName}"</span>,<br>
+    <span class="obj-key">age</span>: <span class="obj-num">${p.age}</span>${modifications.age ? '<span class="prop-tag prop-modified">modified</span>' : ''},<br>
+    ${modifications.delete ? '' : `<span class="obj-key">isStudent</span>: <span class="obj-bool">${p.isStudent}</span>,<br>`}
+    ${modifications.delete ? `<span class="obj-key" style="opacity:0.4;text-decoration:line-through">isStudent</span>: <span style="opacity:0.4">deleted</span>,<br>` : ''}
+    <span class="obj-key">hobbies</span>: <span class="obj-arr">["reading", "coding", "gaming"]</span>,<br>
+    <span class="obj-key">address</span>: {<br>
+    <div style="margin-left:20px">
+      <span class="obj-key">city</span>: <span class="obj-str">"${p.address.city}"</span>,<br>
+      <span class="obj-key">country</span>: <span class="obj-str">"${p.address.country}"</span>
+    </div>
+    }${modifications.email ? ',' : ''}
+    ${modifications.email ? `<br><span class="obj-key">email</span>: <span class="obj-str">"john@example.com"</span><span class="prop-tag prop-added">added</span>` : ''}
+  </div>}`;
+
+  document.getElementById('mutateLog').innerHTML = mutateLog.slice(-4).reverse().map(l =>
+    `<div>→ ${l}</div>`).join('');
+}
+
+function mutateObj(action) {
+  if (action === 'reset') {
+    person = { firstName:"John", lastName:"Doe", age:30, isStudent:false, hobbies:["reading","coding","gaming"], address:{city:"New York",country:"USA"} };
+    modifications = {};
+    mutateLog.push('reset to original object');
+  } else if (action === 'age') {
+    person.age = 31;
+    modifications.age = true;
+    mutateLog.push('person.age = 31  (reassigned existing property)');
+  } else if (action === 'email') {
+    person.email = "john@example.com";
+    modifications.email = true;
+    mutateLog.push('person.email = "john@example.com"  (new property added)');
+  } else if (action === 'delete') {
+    delete person.isStudent;
+    modifications.delete = true;
+    mutateLog.push('delete person.isStudent  (property removed)');
+  }
+  renderPerson();
+}
+
+renderPerson();
+
+// Exercise 2 — Calculator object
+const calculator = {
+  add: function(a, b) { return a + b; },
+  subtract(a, b) { return a - b; },
+  multiply: (a, b) => a * b
+};
+
+function runCalcObj() {
+  const a = parseFloat(document.getElementById('obj-a').value)||0;
+  const b = parseFloat(document.getElementById('obj-b').value)||0;
+  renderLines('calcObjOutput', [
+    [`calculator.add(${a}, ${b})`, String(calculator.add(a,b)), 'accent'],
+    [`calculator.subtract(${a}, ${b})`, String(calculator.subtract(a,b)), 'accent'],
+    [`calculator.multiply(${a}, ${b})`, String(calculator.multiply(a,b)), 'purple'],
+  ]);
+}
+runCalcObj();
+
+// Exercise 3 — Iteration
+function runIteration() {
+  const scores = {
+    math: parseInt(document.getElementById('s-math').value)||0,
+    english: parseInt(document.getElementById('s-english').value)||0,
+    science: parseInt(document.getElementById('s-science').value)||0,
+  };
+  const keys = Object.keys(scores);
+  const vals = Object.values(scores);
+  const entries = Object.entries(scores);
+  const avg = (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
+
+  renderLines('iterOutput', [
+    ['Object.keys()', `[${keys.map(k=>`"${k}"`).join(', ')}]`, ''],
+    ['Object.values()', `[${vals.join(', ')}]`, 'accent'],
+    ['Object.entries()', `[["math",${scores.math}], ["english",${scores.english}], ...]`, 'purple'],
+    ['--- for...of loop ---', '', ''],
+    ...entries.map(([subj, score]) => [`  ${subj}:`, String(score), score >= 90 ? 'accent' : '']),
+    ['Average score:', avg, 'purple'],
+  ]);
+}
+runIteration();
+</script>
+</body>
+</html>
