@@ -232,6 +232,10 @@ function renderTable() {
     const letter = gradeTracker.getLetterGrade(avg);
     const color  = GRADE_COLORS[letter];
     const isSelected = selectedStudent === student.name;
+    const saved = localStorage.getItem('students');
+if (saved) {
+  gradeTracker.students = JSON.parse(saved);
+}
 
     // subject grade pills
     const pills = Object.entries(student.grades)
@@ -365,7 +369,6 @@ document.getElementById('btn-add').addEventListener('click', () => {
   const mathInput    = document.getElementById('inp-math');
   const englishInput = document.getElementById('inp-english');
   const scienceInput = document.getElementById('inp-science');
-  const historyInput = document.getElementById('inp-history');
   const msgEl        = document.getElementById('form-msg');
 
   const name = nameInput.value.trim();
@@ -396,7 +399,7 @@ document.getElementById('btn-add').addEventListener('click', () => {
   gradeTracker.addStudent(name, grades);
 
   // Reset form
-  [nameInput, mathInput, englishInput, scienceInput, historyInput]
+  [nameInput, mathInput, englishInput, scienceInput]
     .forEach(el => el.value = '');
 
   showMessage(msgEl, `${name} added!`, 'success');
@@ -444,10 +447,6 @@ function showMessage(el, text, type) {
    6. INITIALISE
    ═══════════════════════════════════════════════════════════ */
 
-// Seed data — required by the assignment
-gradeTracker.addStudent("Alice",   { math: 95, english: 88, science: 92 });
-gradeTracker.addStudent("Bob",     { math: 72, english: 85, science: 78 });
-gradeTracker.addStudent("Charlie", { math: 60, english: 65, science: 58 });
 
 // Pre-select Alice so a report card is visible on load
 selectedStudent = 'Alice';
